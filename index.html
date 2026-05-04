@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quang · Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d1a;
+    --surface: #13132a;
+    --surface2: #1a1a35;
+    --accent: #7c6dff;
+    --accent2: #ff6db0;
+    --accent3: #6dffcc;
+    --yellow: #ffe066;
+    --text: #e8e8ff;
+    --muted: #7070a0;
+    --border: #2a2a50;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .star { position: absolute; background: #fff; animation: twinkle var(--d, 2s) ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: 0.1; } 50% { opacity: 1; } }
+
+  .container { max-width: 780px; margin: 0 auto; padding: 48px 24px 100px; position: relative; z-index: 1; }
+
+  /* Marquee */
+  .marquee-wrap { overflow: hidden; background: var(--surface); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border); padding: 8px 0; margin-bottom: 48px; }
+  .marquee { display: flex; gap: 40px; animation: marquee 22s linear infinite; white-space: nowrap; font-size: 16px; color: var(--muted); }
+  .marquee span { color: var(--accent); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Hero */
+  .hero { text-align: center; margin-bottom: 64px; animation: fadeIn 0.5s ease both; }
+
+  .sprite-container { display: flex; justify-content: center; gap: 32px; margin-bottom: 28px; flex-wrap: wrap; }
+  .sprite-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .sprite-label { font-size: 13px; color: var(--muted); }
+  .float { animation: float 3s ease-in-out infinite; }
+  .float2 { animation: float 3.5s ease-in-out infinite 0.5s; }
+  .float3 { animation: float 4s ease-in-out infinite 1s; }
+  .float4 { animation: float 2.8s ease-in-out infinite 0.3s; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  .hero-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(22px, 6vw, 46px);
+    color: var(--accent);
+    text-shadow: 4px 4px 0 #3d2cff, 0 0 30px rgba(124,109,255,0.4);
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+    animation: glitch 5s infinite;
+  }
+
+  @keyframes glitch {
+    0%, 88%, 100% { text-shadow: 4px 4px 0 #3d2cff; transform: translate(0); }
+    91% { text-shadow: -3px 3px 0 var(--accent2); transform: translate(3px, -1px); }
+    93% { text-shadow: 3px -3px 0 var(--accent3); transform: translate(-3px, 1px); }
+    95% { text-shadow: 4px 4px 0 #3d2cff; transform: translate(0); }
+  }
+
+  .blink { animation: blink 1s step-end infinite; color: var(--yellow); }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .hero-sub { font-size: 20px; color: var(--accent3); margin-bottom: 10px; letter-spacing: 1px; }
+  .hero-sub2 { font-size: 17px; color: var(--muted); }
+
+  /* Status */
+  .status-bar { display: inline-flex; flex-direction: column; gap: 8px; background: var(--surface); border: 4px solid var(--border); padding: 14px 20px; margin-top: 24px; text-align: left; }
+  .stat-row { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+  .stat-label { color: var(--yellow); min-width: 56px; font-size: 14px; }
+  .bar-track { width: 140px; height: 12px; background: #1a1a35; border: 2px solid var(--border); position: relative; }
+  .bar-fill { height: 100%; position: absolute; left: 0; top: 0; animation: fillBar 1.5s ease both; }
+  @keyframes fillBar { from { width: 0; } }
+  .bar-hp { background: #ff4466; width: 88%; }
+  .bar-vibe { background: var(--accent3); width: 95%; }
+  .bar-code { background: var(--accent); width: 28%; }
+  .bar-game { background: var(--yellow); width: 99%; }
+  .stat-val { color: var(--text); font-size: 14px; }
+
+  /* Sections */
+  .section { margin-bottom: 40px; animation: fadeUp 0.6s ease both; }
+  .section:nth-child(3) { animation-delay: 0.1s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.3s; }
+  .section:nth-child(6) { animation-delay: 0.4s; }
+
+  .section-title { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--yellow); margin-bottom: 16px; letter-spacing: 2px; display: flex; align-items: center; gap: 12px; }
+  .section-title::after { content: ''; flex: 1; height: 2px; background: var(--border); }
+
+  .card { background: var(--surface); border: 4px solid var(--border); padding: 24px; position: relative; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+  .card:hover { border-color: var(--accent); transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--accent); }
+
+  .about-text { font-size: 20px; line-height: 1.7; color: rgba(232,232,255,0.85); }
+  .about-text em { color: var(--accent3); font-style: normal; }
+
+  .pixel-deco { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .pixel-badge { background: var(--surface2); border: 2px solid var(--border); padding: 5px 12px; font-size: 16px; color: var(--muted); transition: all 0.15s; cursor: default; }
+  .pixel-badge:hover { border-color: var(--accent2); color: var(--accent2); transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--accent2); }
+
+  /* Game grid */
+  .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+  .game-tile { background: var(--surface2); border: 2px solid var(--border); padding: 14px 8px; text-align: center; cursor: default; transition: all 0.15s; }
+  .game-tile:hover { border-color: var(--accent3); transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--accent3); }
+  .gicon { font-size: 26px; display: block; margin-bottom: 6px; }
+  .gname { font-size: 15px; color: var(--muted); }
+  .game-tile:hover .gname { color: var(--accent3); }
+
+  /* Links */
+  .links-list { display: flex; flex-direction: column; gap: 8px; }
+  .link-btn { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: var(--surface2); border: 2px solid var(--border); color: var(--text); text-decoration: none; font-size: 18px; font-family: 'VT323', monospace; transition: all 0.15s; }
+  .link-btn:hover { transform: translate(-3px, -3px); }
+  .link-btn.insta:hover { border-color: var(--accent2); box-shadow: 3px 3px 0 var(--accent2); color: var(--accent2); }
+  .link-btn.discord:hover { border-color: #5865F2; box-shadow: 3px 3px 0 #5865F2; color: #5865F2; }
+  .link-btn.spotify:hover { border-color: #1db954; box-shadow: 3px 3px 0 #1db954; color: #1db954; }
+  .link-emoji { font-size: 24px; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 20px; }
+  .link-handle { font-size: 15px; color: var(--muted); }
+  .link-arrow { font-size: 20px; }
+
+  .footer { margin-top: 64px; padding-top: 24px; border-top: 4px solid var(--border); text-align: center; font-size: 16px; color: var(--muted); }
+  .heart { color: var(--accent2); display: inline-block; animation: heartbeat 1.5s ease infinite; }
+  @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>★</span> PLAYER ONE &nbsp;<span>★</span> QUANG &nbsp;<span>★</span> GAMER &nbsp;<span>★</span> DEV IN PROGRESS &nbsp;<span>★</span> ĐANG HỌC C# &nbsp;<span>★</span> RỦ GAME BẤT CỨ LÚC NÀO &nbsp;<span>★</span> PLAYER ONE &nbsp;<span>★</span> QUANG &nbsp;<span>★</span> GAMER &nbsp;<span>★</span> DEV IN PROGRESS &nbsp;<span>★</span> ĐANG HỌC C# &nbsp;<span>★</span> RỦ GAME BẤT CỨ LÚC NÀO &nbsp;
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+
+    <div class="sprite-container">
+      <!-- Sword -->
+      <div class="sprite-wrap float">
+        <svg width="64" height="64" viewBox="0 0 8 8" style="image-rendering:pixelated">
+          <rect x="6" y="0" width="1" height="1" fill="#ffe066"/>
+          <rect x="5" y="1" width="1" height="1" fill="#ffe066"/>
+          <rect x="4" y="2" width="1" height="1" fill="#e0c040"/>
+          <rect x="3" y="2" width="1" height="1" fill="#fff"/>
+          <rect x="3" y="3" width="2" height="1" fill="#c0a030"/>
+          <rect x="2" y="4" width="4" height="1" fill="#7c6dff"/>
+          <rect x="3" y="4" width="1" height="1" fill="#a090ff"/>
+          <rect x="2" y="5" width="1" height="1" fill="#5040c0"/>
+          <rect x="1" y="6" width="1" height="1" fill="#5040c0"/>
+          <rect x="0" y="7" width="1" height="1" fill="#3020a0"/>
+        </svg>
+        <span class="sprite-label">FIGHTER</span>
+      </div>
+
+      <!-- Heart -->
+      <div class="sprite-wrap float2">
+        <svg width="64" height="64" viewBox="0 0 8 8" style="image-rendering:pixelated">
+          <rect x="1" y="1" width="2" height="1" fill="#ff6688"/>
+          <rect x="5" y="1" width="2" height="1" fill="#ff6688"/>
+          <rect x="0" y="2" width="3" height="2" fill="#ff4466"/>
+          <rect x="4" y="2" width="3" height="2" fill="#ff4466"/>
+          <rect x="1" y="4" width="6" height="2" fill="#ff4466"/>
+          <rect x="2" y="6" width="4" height="1" fill="#cc2244"/>
+          <rect x="3" y="7" width="2" height="1" fill="#cc2244"/>
+          <rect x="1" y="2" width="1" height="1" fill="#ff99aa"/>
+          <rect x="5" y="2" width="1" height="1" fill="#ff99aa"/>
+        </svg>
+        <span class="sprite-label">VIBE</span>
+      </div>
+
+      <!-- Controller -->
+      <div class="sprite-wrap float3">
+        <svg width="64" height="64" viewBox="0 0 8 8" style="image-rendering:pixelated">
+          <rect x="1" y="2" width="6" height="4" fill="#333366"/>
+          <rect x="0" y="3" width="1" height="2" fill="#2a2a55"/>
+          <rect x="7" y="3" width="1" height="2" fill="#2a2a55"/>
+          <rect x="1" y="6" width="2" height="1" fill="#2a2a55"/>
+          <rect x="5" y="6" width="2" height="1" fill="#2a2a55"/>
+          <rect x="2" y="3" width="1" height="3" fill="#5555aa"/>
+          <rect x="1" y="4" width="3" height="1" fill="#5555aa"/>
+          <rect x="5" y="3" width="1" height="1" fill="#ff4466"/>
+          <rect x="6" y="4" width="1" height="1" fill="#ffe066"/>
+          <rect x="5" y="5" width="1" height="1" fill="#6dffcc"/>
+          <rect x="4" y="4" width="1" height="1" fill="#7c6dff"/>
+        </svg>
+        <span class="sprite-label">GAMER</span>
+      </div>
+
+      <!-- Star -->
+      <div class="sprite-wrap float4">
+        <svg width="64" height="64" viewBox="0 0 8 8" style="image-rendering:pixelated">
+          <rect x="3" y="0" width="2" height="2" fill="#ffe066"/>
+          <rect x="0" y="3" width="8" height="2" fill="#ffe066"/>
+          <rect x="1" y="2" width="6" height="1" fill="#ffd040"/>
+          <rect x="1" y="5" width="2" height="2" fill="#ffd040"/>
+          <rect x="5" y="5" width="2" height="2" fill="#ffd040"/>
+          <rect x="3" y="1" width="1" height="1" fill="#fff8cc"/>
+          <rect x="1" y="3" width="1" height="1" fill="#fff8cc"/>
+          <rect x="6" y="3" width="1" height="1" fill="#fff8cc"/>
+        </svg>
+        <span class="sprite-label">RARE</span>
+      </div>
+    </div>
+
+    <div class="hero-name">QUANG<span class="blink">_</span></div>
+    <div class="hero-sub">[ PLAYER ONE · HÒA ĐỒNG · GAMER ]</div>
+    <div class="hero-sub2">đang học C# và chơi game đủ thứ</div>
+
+    <div class="status-bar">
+      <div class="stat-row">
+        <span class="stat-label">HP</span>
+        <div class="bar-track"><div class="bar-fill bar-hp"></div></div>
+        <span class="stat-val">88/100</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">VIBE</span>
+        <div class="bar-track"><div class="bar-fill bar-vibe"></div></div>
+        <span class="stat-val">95/100</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">CODE</span>
+        <div class="bar-track"><div class="bar-fill bar-code"></div></div>
+        <span class="stat-val">LV.1 ↑</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">GAME</span>
+        <div class="bar-track"><div class="bar-fill bar-game"></div></div>
+        <span class="stat-val">PRO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <div class="section-title">ABOUT ME</div>
+    <div class="card">
+      <p class="about-text">
+        Tôi là người <em>hòa đồng</em> và khá nhạy cảm.<br>
+        Đang trong hành trình học lập trình và <em>chơi game đa dạng thể loại</em>.<br>
+        Nếu muốn rủ game hay chỉ muốn nói chuyện thì cứ liên hệ tôi nhé.<br><br>
+        Tôi không từ chối đâu. <em>Thật đó.</em>
+      </p>
+      <div class="pixel-deco">
+        <span class="pixel-badge">⚔ Fighter</span>
+        <span class="pixel-badge">💻 Dev LV1</span>
+        <span class="pixel-badge">🎵 Music</span>
+        <span class="pixel-badge">😌 Chill</span>
+        <span class="pixel-badge">🌙 Night owl</span>
+        <span class="pixel-badge">🎯 Đa dạng</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Games -->
+  <div class="section">
+    <div class="section-title">GAME LIST</div>
+    <div class="card">
+      <div class="game-grid">
+        <div class="game-tile"><span class="gicon">⚔️</span><span class="gname">RPG</span></div>
+        <div class="game-tile"><span class="gicon">🔫</span><span class="gname">FPS</span></div>
+        <div class="game-tile"><span class="gicon">🏆</span><span class="gname">MOBA</span></div>
+        <div class="game-tile"><span class="gicon">🃏</span><span class="gname">Card</span></div>
+        <div class="game-tile"><span class="gicon">🌍</span><span class="gname">Open World</span></div>
+        <div class="game-tile"><span class="gicon">👾</span><span class="gname">Indie</span></div>
+        <div class="game-tile"><span class="gicon">🎯</span><span class="gname">Strategy</span></div>
+        <div class="game-tile"><span class="gicon">✨</span><span class="gname">& more</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Links -->
+  <div class="section">
+    <div class="section-title">FIND ME</div>
+    <div class="card">
+      <div class="links-list">
+        <a href="https://www.instagram.com/gnauqgnoah/" target="_blank" class="link-btn insta">
+          <span class="link-emoji">📸</span>
+          <div class="link-info">
+            <div class="link-name">Instagram</div>
+            <div class="link-handle">@gnauqgnoah</div>
+          </div>
+          <span class="link-arrow">▶</span>
+        </a>
+        <a href="https://discord.com/users/wang0210" target="_blank" class="link-btn discord">
+          <span class="link-emoji">🎮</span>
+          <div class="link-info">
+            <div class="link-name">Discord</div>
+            <div class="link-handle">wang0210 · rủ game bất cứ lúc nào</div>
+          </div>
+          <span class="link-arrow">▶</span>
+        </a>
+        <a href="https://open.spotify.com/playlist/4nq6EcYkAOQ0I0V1VOYyK9?si=-BpVlEJQTs6B2-l-nrhJkg" target="_blank" class="link-btn spotify">
+          <span class="link-emoji">🎵</span>
+          <div class="link-info">
+            <div class="link-name">Spotify Playlist</div>
+            <div class="link-handle">nhạc của tôi · chill cùng đi</div>
+          </div>
+          <span class="link-arrow">▶</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="heart">♥</span> QUANG · 2025 · LEVEL UP EVERY DAY <span class="heart">♥</span>
+  </div>
+
+</div>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() < 0.7 ? 2 : 4;
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${1.5+Math.random()*3}s;animation-delay:${Math.random()*3}s`;
+    starsEl.appendChild(s);
+  }
+</script>
+</body>
+</html>
