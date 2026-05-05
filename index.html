@@ -420,7 +420,7 @@ async function sendMail(){
   btn.disabled = true;
 
   try {
-    const res = await fetch('https://formspree.io/f/ENDPOINT_CỦA_BẠN', {
+    const res = await fetch('https://formspree.io/f/mykowpoo', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ name, message: msg, _subject: '📮 Tin nhắn mới từ Portfolio!' })
