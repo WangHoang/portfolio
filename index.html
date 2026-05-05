@@ -66,10 +66,12 @@
   }
 
   /* Canvas nhỏ lại tý */
-  #charCanvas {
-    width: 52px !important;
-    height: 78px !important;
-  }
+#charCanvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+  margin: 0 auto;   /* căn giữa canvas */
+}
 }
 :root{
   --sky1:#a0d4f0;--sky2:#fde8f0;
