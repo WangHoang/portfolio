@@ -28,11 +28,19 @@
   }
 
   /* Character canvas giữa */
-  .char-display {
-    order: 0;          /* lên giữa */
-    min-height: 120px;
-    width: 80px;
-  }
+.char-display {
+  background: rgba(255,255,255,0.04);
+  border: 2px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* căn giữa ngang */
+  justify-content: center;  /* căn giữa dọc */
+  min-height: 160px;
+  width: 100px;
+  text-align: center;       /* tên QUANG căn giữa */
+}
 
   /* Slots trái → lên trên */
   .equip-layout > .equip-slots:first-child {
