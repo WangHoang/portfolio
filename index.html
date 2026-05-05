@@ -6,6 +6,63 @@
 <title>Quang · ポートフォリオ</title>
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
+  /* ── MOBILE EQUIP FIX ── */
+@media (max-width: 600px) {
+  .equip-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Slots trái + phải → thành hàng ngang */
+  .equip-slots {
+    flex-direction: row;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .eslot {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* Character canvas giữa */
+  .char-display {
+    order: 0;          /* lên giữa */
+    min-height: 120px;
+    width: 80px;
+  }
+
+  /* Slots trái → lên trên */
+  .equip-layout > .equip-slots:first-child {
+    order: -1;
+  }
+
+  /* Slots phải → xuống dưới */
+  .equip-layout > .equip-slots:last-child {
+    order: 1;
+  }
+
+  /* Bottom row */
+  .equip-bottom {
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .eslot-h {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  /* Canvas nhỏ lại tý */
+  #charCanvas {
+    width: 52px !important;
+    height: 78px !important;
+  }
+}
 :root{
   --sky1:#a0d4f0;--sky2:#fde8f0;
   --acc:#f7a8c4;--acc2:#7ececa;
