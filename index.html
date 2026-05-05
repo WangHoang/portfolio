@@ -410,12 +410,33 @@ function setSeason(s){
 try{let v=parseInt(localStorage.getItem('qv')||'0');v++;localStorage.setItem('qv',v);document.getElementById('vc').textContent=v.toLocaleString();}catch(e){document.getElementById('vc').textContent='∞';}
 
 // ─── MAIL ─────────────────────────────────────────────────────────────────
-function sendMail(){
-  const msg=document.getElementById('mm').value.trim();
-  if(!msg){document.getElementById('mm').focus();return;}
-  try{const a=JSON.parse(localStorage.getItem('qm')||'[]');a.push({name:document.getElementById('mn').value.trim()||'Ẩn danh',msg,time:new Date().toLocaleString('vi-VN')});localStorage.setItem('qm',JSON.stringify(a));}catch(e){}
-  document.getElementById('mf').style.display='none';
-  document.getElementById('ms').classList.add('show');
+async function sendMail(){
+  const name = document.getElementById('mn').value.trim() || 'Ẩn danh';
+  const msg  = document.getElementById('mm').value.trim();
+  if(!msg){ document.getElementById('mm').focus(); return; }
+
+  const btn = document.querySelector('.mbtn');
+  btn.textContent = '⏳ Đang gửi...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/ENDPOINT_CỦA_BẠN', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, message: msg, _subject: '📮 Tin nhắn mới từ Portfolio!' })
+    });
+
+    if(res.ok){
+      document.getElementById('mf').style.display = 'none';
+      document.getElementById('ms').classList.add('show');
+    } else {
+      btn.textContent = '❌ Lỗi, thử lại!';
+      btn.disabled = false;
+    }
+  } catch(e){
+    btn.textContent = '❌ Không kết nối được!';
+    btn.disabled = false;
+  }
 }
 
 // ─── PIXEL CHARACTER ──────────────────────────────────────────────────────
