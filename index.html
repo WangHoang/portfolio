@@ -54,7 +54,7 @@ body::before{
   z-index: 9999;
   image-rendering: pixelated;
 }
-music.volume = 0.1;
+
 .music-btn:hover {
   background: #ff6b9d;
   color: #1a1a2e;
@@ -627,7 +627,7 @@ function drawCharacter(frame){
   // eyebrows
   dp(cctx,4,4,3,1,'#1a1a1a');
   dp(cctx,9,4,3,1,'#1a1a1a');
-  // mouth (open slightly, music)
+  // mouth (open slightly, )
   dp(cctx,7,9,2,1,'#c88888');
   // ear
   dp(cctx,2,6,1,3,'#f0d8c0');
@@ -910,7 +910,7 @@ function drawScene(){
 drawScene();
 const music = document.getElementById('bgMusic');
 const btn = document.getElementById('musicBtn');
-music.volume = 0.4;
+music.volume = 0.2;
 
 // Tự động phát khi user click lần đầu (tránh bị trình duyệt chặn)
 document.addEventListener('click', () => music.play(), { once: true });
