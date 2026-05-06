@@ -133,6 +133,195 @@ body::before{
   min-height:160px;
   gap:8px;
 }
+   :root {
+    --p: #f5a623;
+    --p2: #e8891a;
+    --bg: #111010;
+    --bg2: #1a1917;
+    --bg3: #242220;
+    --txt: #f0ece4;
+    --txt2: #9a9590;
+    --r: 14px;
+  }
+ 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0c0b; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+ 
+  /* --- wrapper --- */
+  .mp-wrap {
+    background: var(--bg);
+    border-radius: var(--r);
+    overflow: hidden;
+    width: 360px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--txt);
+    border: 1px solid #2a2826;
+  }
+ 
+  /* --- visualizer bars --- */
+  .mp-vis {
+    height: 90px;
+    background: var(--bg2);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    padding: 0 20px 12px;
+    overflow: hidden;
+  }
+  .bar {
+    width: 4px;
+    border-radius: 3px 3px 0 0;
+    background: var(--p);
+    opacity: 0.85;
+    transition: height 0.1s ease;
+    will-change: height;
+  }
+ 
+  /* --- cover disc --- */
+  .mp-cover {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    background: var(--bg3);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .disc {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: conic-gradient(#2a2826 0deg,#3a3632 90deg,#2a2826 180deg,#3a3632 270deg,#2a2826 360deg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .disc-inner {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 2px solid #3a3632;
+    position: relative;
+  }
+  .disc-inner::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 4px; height: 4px;
+    background: var(--p);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .disc.spinning { animation: spin 3s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+ 
+  /* --- top row --- */
+  .mp-top { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+  .mp-info { flex: 1; min-width: 0; }
+  .mp-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; font-weight: 700;
+    color: var(--txt);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+  .mp-artist { font-size: 12px; color: var(--txt2); font-weight: 300; }
+ 
+  /* --- progress bar --- */
+  .mp-prog-wrap { padding: 0 16px 8px; }
+  .mp-prog-bg {
+    height: 3px; background: #2a2826;
+    border-radius: 2px; cursor: pointer; position: relative;
+  }
+  .mp-prog-fill {
+    height: 100%; background: var(--p);
+    border-radius: 2px; width: 0%;
+    transition: width 0.5s linear;
+    pointer-events: none;
+  }
+  .mp-prog-thumb {
+    width: 10px; height: 10px;
+    background: var(--txt); border-radius: 50%;
+    position: absolute; top: 50%;
+    transform: translate(-50%, -50%);
+    left: 0%; pointer-events: none;
+    transition: left 0.5s linear;
+    box-shadow: 0 0 0 2px var(--bg);
+  }
+  .mp-times {
+    display: flex; justify-content: space-between;
+    padding: 4px 16px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: var(--txt2);
+  }
+ 
+  /* --- controls --- */
+  .mp-ctrl {
+    display: flex; align-items: center;
+    justify-content: center;
+    gap: 6px; padding: 10px 16px 14px;
+  }
+  .btn {
+    background: none; border: none;
+    color: var(--txt2); cursor: pointer;
+    padding: 7px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s, background 0.2s;
+  }
+  .btn:hover { color: var(--txt); background: #242220; }
+  .btn.active { color: var(--p); }
+  .btn-play {
+    width: 42px; height: 42px;
+    background: var(--p); border-radius: 50%;
+    color: #000; cursor: pointer; border: none;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+    margin: 0 4px;
+  }
+  .btn-play:hover { background: var(--p2); transform: scale(1.05); }
+  .btn-play:active { transform: scale(0.96); }
+ 
+  /* --- volume --- */
+  .mp-vol { display: flex; align-items: center; gap: 8px; padding: 0 16px 14px; }
+  .vol-icon { color: var(--txt2); font-size: 14px; flex-shrink: 0; }
+  .vol-slider {
+    -webkit-appearance: none; flex: 1;
+    height: 3px; background: #2a2826;
+    border-radius: 2px; outline: none; cursor: pointer;
+  }
+  .vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px; height: 12px;
+    background: var(--txt); border-radius: 50%; cursor: pointer;
+  }
+ 
+  /* --- track list --- */
+  .mp-list { border-top: 1px solid #2a2826; max-height: 200px; overflow-y: auto; }
+  .mp-list::-webkit-scrollbar { width: 3px; }
+  .mp-list::-webkit-scrollbar-track { background: transparent; }
+  .mp-list::-webkit-scrollbar-thumb { background: #3a3632; border-radius: 2px; }
+  .track-item {
+    display: flex; align-items: center;
+    gap: 10px; padding: 10px 16px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid #1e1d1b;
+  }
+  .track-item:last-child { border-bottom: none; }
+  .track-item:hover, .track-item.active { background: #1d1c1a; }
+  .track-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: var(--txt2);
+    width: 16px; text-align: center; flex-shrink: 0;
+  }
+  .track-num.playing { color: var(--p); }
+  .track-info { flex: 1; min-width: 0; }
+  .track-name {
+    font-size: 12px; font-weight: 500; color: var(--txt);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .track-name.active { color: var(--p); }
+  .track-dur {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: var(--txt2); flex-shrink: 0;
+  }
 .char-name-tag{font-family:'DotGothic16',monospace;font-size:9px;color:var(--acc);letter-spacing:1px;text-align:center;width:100%}
 #charCanvas{image-rendering:pixelated;image-rendering:crisp-edges;display:block;margin:0 auto}
 
@@ -487,7 +676,230 @@ body::before{
     <span class="heart">♥</span> QUANG · 2025 · LEVEL UP EVERY DAY · ありがとう <span class="heart">♥</span>
   </div>
 </div>
-
+<div class="mp-wrap" id="mp">
+  <div class="mp-vis" id="vis"></div>
+ 
+  <div class="mp-top">
+    <div class="mp-cover">
+      <div class="disc" id="disc">
+        <div class="disc-inner"></div>
+      </div>
+    </div>
+    <div class="mp-info">
+      <div class="mp-title" id="mp-title">Chill Lofi Vibes</div>
+      <div class="mp-artist" id="mp-artist">lofi.wav</div>
+    </div>
+  </div>
+ 
+  <div class="mp-prog-wrap">
+    <div class="mp-prog-bg" id="progBg">
+      <div class="mp-prog-fill" id="progFill"></div>
+      <div class="mp-prog-thumb" id="progThumb"></div>
+    </div>
+  </div>
+  <div class="mp-times">
+    <span id="mp-cur">0:00</span>
+    <span id="mp-dur">3:42</span>
+  </div>
+ 
+  <div class="mp-ctrl">
+    <!-- Shuffle -->
+    <button class="btn" id="btnShuffle" onclick="toggleShuffle()" title="Shuffle">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6"/>
+      </svg>
+    </button>
+    <!-- Prev -->
+    <button class="btn" onclick="prevTrack()" title="Previous">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+    </button>
+    <!-- Play / Pause -->
+    <button class="btn-play" id="btnPlay" onclick="togglePlay()">
+      <svg id="icPlay" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="icPause" width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <!-- Next -->
+    <button class="btn" onclick="nextTrack()" title="Next">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 18l8.5-6L6 6v12zm2-6 8.5 6V6z M16 6h2v12h-2z"/>
+      </svg>
+    </button>
+    <!-- Repeat -->
+    <button class="btn" id="btnRepeat" onclick="toggleRepeat()" title="Repeat">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+      </svg>
+    </button>
+  </div>
+ 
+  <div class="mp-vol">
+    <svg width="14" height="14" fill="currentColor" class="vol-icon" viewBox="0 0 24 24">
+      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.7-4.1v8.2a4.5 4.5 0 0 0 2.7-4.1z"/>
+    </svg>
+    <input type="range" class="vol-slider" id="vol" min="0" max="100" value="80">
+  </div>
+ 
+  <div class="mp-list" id="trackList"></div>
+</div>
+ 
+<script>
+  /* ============================================================
+     CUSTOMIZE: Replace with your own tracks.
+     For real audio, set `src` to the URL of your audio file.
+     Example: src: '/audio/my-song.mp3'
+     Leave src empty ("") for demo/silent mode.
+  ============================================================ */
+  const tracks = [
+    { title: "Chill Lofi Vibes",  artist: "lofi.wav",      dur: "3:42", secs: 222, src: "" },
+    { title: "Late Night Study",  artist: "ambient.studio", dur: "4:15", secs: 255, src: "" },
+    { title: "Rainy Window",      artist: "kofi.beats",     dur: "2:58", secs: 178, src: "" },
+    { title: "Tokyo Drift",       artist: "city.sounds",    dur: "3:30", secs: 210, src: "" },
+    { title: "Soft Mornings",     artist: "pastel.audio",   dur: "4:01", secs: 241, src: "" },
+  ];
+ 
+  /* ---- state ---- */
+  let curIdx = 0, isPlaying = false, isShuffle = false, isRepeat = false, elapsed = 0, ticker = null;
+  let audio = null; // will be set when src is provided
+ 
+  /* ---- build visualizer bars ---- */
+  const visEl = document.getElementById('vis');
+  const bars = [];
+  for (let i = 0; i < 42; i++) {
+    const b = document.createElement('div');
+    b.className = 'bar';
+    b.style.height = '4px';
+    visEl.appendChild(b);
+    bars.push(b);
+  }
+ 
+  function animBars() {
+    if (!isPlaying) return;
+    bars.forEach(b => { b.style.height = (Math.random() * 48 + 8) + 'px'; });
+    setTimeout(animBars, 80);
+  }
+ 
+  /* ---- load a track ---- */
+  function loadTrack(i) {
+    curIdx = i;
+    const t = tracks[i];
+ 
+    document.getElementById('mp-title').textContent = t.title;
+    document.getElementById('mp-artist').textContent = t.artist;
+    document.getElementById('mp-dur').textContent = t.dur;
+    elapsed = 0;
+    updateProgress();
+    renderList();
+ 
+  /* ---- update progress bar & timer ---- */
+  function updateProgress() {
+    const t = tracks[curIdx];
+    const pct = (elapsed / t.secs) * 100;
+    document.getElementById('progFill').style.width = pct + '%';
+    document.getElementById('progThumb').style.left = pct + '%';
+    const m = Math.floor(elapsed / 60), s = elapsed % 60;
+    document.getElementById('mp-cur').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  }
+ 
+  /* ---- play / pause ---- */
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    document.getElementById('icPlay').style.display  = isPlaying ? 'none'  : 'block';
+    document.getElementById('icPause').style.display = isPlaying ? 'block' : 'none';
+    const disc = document.getElementById('disc');
+ 
+    if (isPlaying) {
+      disc.classList.add('spinning');
+      // Real audio: if (audio && tracks[curIdx].src) audio.play();
+      clearInterval(ticker);
+      ticker = setInterval(() => {
+        elapsed++;
+        if (elapsed >= tracks[curIdx].secs) {
+          if (isRepeat) { elapsed = 0; }
+          else { nextTrack(); return; }
+        }
+        updateProgress();
+      }, 1000);
+      animBars();
+    } else {
+      disc.classList.remove('spinning');
+      clearInterval(ticker);
+      // Real audio: if (audio) audio.pause();
+      bars.forEach(b => b.style.height = '4px');
+    }
+  }
+ 
+  /* ---- prev / next ---- */
+  function prevTrack() {
+    const wasPlaying = isPlaying;
+    if (isPlaying) togglePlay();
+    elapsed = 0;
+    loadTrack(curIdx > 0 ? curIdx - 1 : tracks.length - 1);
+    if (wasPlaying) togglePlay();
+  }
+  function nextTrack() {
+    const wasPlaying = isPlaying;
+    if (isPlaying) togglePlay();
+    elapsed = 0;
+    const next = isShuffle
+      ? Math.floor(Math.random() * tracks.length)
+      : (curIdx + 1) % tracks.length;
+    loadTrack(next);
+    if (wasPlaying) togglePlay();
+  }
+ 
+  /* ---- shuffle / repeat ---- */
+  function toggleShuffle() {
+    isShuffle = !isShuffle;
+    document.getElementById('btnShuffle').classList.toggle('active', isShuffle);
+  }
+  function toggleRepeat() {
+    isRepeat = !isRepeat;
+    document.getElementById('btnRepeat').classList.toggle('active', isRepeat);
+  }
+ 
+  /* ---- scrub on progress bar click ---- */
+  document.getElementById('progBg').addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    elapsed = Math.floor(pct * tracks[curIdx].secs);
+    // Real audio: if (audio) audio.currentTime = elapsed;
+    updateProgress();
+  });
+ 
+  /* ---- volume ---- */
+  document.getElementById('vol').addEventListener('input', function() {
+    // Real audio: if (audio) audio.volume = this.value / 100;
+  });
+ 
+  /* ---- render track list ---- */
+  function renderList() {
+    const list = document.getElementById('trackList');
+    list.innerHTML = '';
+    tracks.forEach((t, i) => {
+      const row = document.createElement('div');
+      row.className = 'track-item' + (i === curIdx ? ' active' : '');
+      row.innerHTML = `
+        <div class="track-num ${i === curIdx && isPlaying ? 'playing' : ''}">
+          ${i === curIdx && isPlaying ? '♪' : (i + 1)}
+        </div>
+        <div class="track-info">
+          <div class="track-name${i === curIdx ? ' active' : ''}">${t.title}</div>
+          <div style="font-size:11px;color:var(--txt2)">${t.artist}</div>
+        </div>
+        <div class="track-dur">${t.dur}</div>`;
+      row.onclick = () => {
+        const wasPlaying = isPlaying;
+        if (isPlaying) togglePlay();
+        loadTrack(i);
+        if (wasPlaying) togglePlay();
+      };
+      list.appendChild(row);
+    });
+  }
+ 
+  /* ---- init ---- */
+  loadTrack(0);
+</script>
 <script>
 // ─── SEASON ───────────────────────────────────────────────────────────────
 let season = 'spring';
